@@ -1,0 +1,13 @@
+<mat-sidenav-container
+  class="app-sidenav-container" (backdropClick)="close('backdrop')">
+  <mat-sidenav class="app-sidenav" #sidenav (keydown.escape)="close('escape')" mode="push">
+    <p><button mat-button (click)="close()">Close</button></p>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="app-sidenav-content">
+    <p><button mat-button (click)="sidenav.open()">Menu</button></p>
+    <div style="width: 100%; margin: 0;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
