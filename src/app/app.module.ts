@@ -12,7 +12,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { HistogramComponent } from './graphs/histogram/histogram.component';
+import { HistogramComponent } from './analytics-container/histogram/histogram.component';
 import {AdsService} from './services/ads.service';
 import {AdsTableComponent} from './home/ads-container/ads-table/ads-table.component';
 import {AdsContainerComponent} from './home/ads-container/ads-container.component';
