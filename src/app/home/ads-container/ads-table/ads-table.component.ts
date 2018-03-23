@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource, MatSort} from '@angular/material';
-import {Ad} from '../../models/ad.model';
-import {AdsService} from '../../services/ads.service';
+import {Ad} from '../../../models/ad.model';
+import {AdsService} from '../../../services/ads.service';
 
 @Component({
   selector: 'app-ads-table',
