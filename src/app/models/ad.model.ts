@@ -5,4 +5,4 @@ interface Ad {
   symbol: string;
 }
 
-export {Ad}
+export {Ad};

@@ -18,9 +18,13 @@ export class AdsTableComponent implements AfterViewInit, OnInit {
   constructor (private adsService: AdsService) {
   }
   ngOnInit() {
-    this.adsService.getAds().subscribe((data) => {
+    this.adsService.retrieveActiveAds().subscribe(() => {
+      const data: Ad[] = this.adsService.getAds();
       this.dataSource = new MatTableDataSource<Ad>(data);
     });
+    // this.adsService.getAds().subscribe((data) => {
+    //   this.dataSource = new MatTableDataSource<Ad>(data);
+    // });
   }
 
   ngAfterViewInit() {

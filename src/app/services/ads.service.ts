@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Ad} from '../models/ad.model';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -6,18 +6,28 @@ import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
+import {AppState} from '../redux/reducers/app.reducer';
+import * as Redux from 'redux';
+import * as AdActions from './../redux/actions/ads.action';
+import {AppStore} from '../redux/stores/app.store';
+import 'rxjs/add/operator/mergeMap';
+import {getActiveAds} from '../redux/reducers/ads.reducer';
 
 
 @Injectable()
 
+
+// AdsService should make http call and update AppState with results
+// after completion of update, the view should be retreived with a selector call.
+
 export class AdsService {
 
-  constructor() {}
+  constructor(@Inject(AppStore) private store: Redux.Store<AppState>) {}
 
-  getAds(): Observable<Ad[]> {
+  retrieveActiveAds() {
 
     const body = new HttpParams()
-      .set(`ads`, 'kijiji')
+      .set(`ads`, 'kijiji');
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 
     const data: Ad[] =  [
@@ -49,7 +59,14 @@ export class AdsService {
     //       return Observable.of(data);
     //     }
     //   );
-    return Observable.of(data);
+    return Observable.of(data).mergeMap(
+      (ads) =>
+        Observable.of(this.store.dispatch(AdActions.updateActiveAds(ads)))
+    );
+  }
+
+  getAds(): Ad[] {
+    return getActiveAds(this.store.getState());
   }
 }
 

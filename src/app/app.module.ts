@@ -16,6 +16,7 @@ import { HistogramComponent } from './analytics-container/histogram/histogram.co
 import {AdsService} from './services/ads.service';
 import {AdsTableComponent} from './home/ads-container/ads-table/ads-table.component';
 import {AdsContainerComponent} from './home/ads-container/ads-container.component';
+import {appStoreProviders} from './redux/stores/app.store';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import {AdsContainerComponent} from './home/ads-container/ads-container.componen
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [AdsService],
+  providers: [AdsService, appStoreProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
