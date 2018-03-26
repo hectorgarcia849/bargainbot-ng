@@ -12,6 +12,7 @@ import * as AdActions from './../redux/actions/ads.action';
 import {AppStore} from '../redux/stores/app.store';
 import 'rxjs/add/operator/mergeMap';
 import {getActiveAds} from '../redux/reducers/ads.reducer';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 
 
 @Injectable()
@@ -21,10 +22,16 @@ import {getActiveAds} from '../redux/reducers/ads.reducer';
 // after completion of update, the view should be retreived with a selector call.
 
 export class AdsService {
+  private activeAdsSubject = new ReplaySubject<Ad[]>(1);
+  activeAds$ = this.activeAdsSubject.asObservable();
 
-  constructor(@Inject(AppStore) private store: Redux.Store<AppState>) {}
+  constructor(@Inject(AppStore) private store: Redux.Store<AppState>) {
+    this.retrieveActiveAds().subscribe(() => {
+      this.activeAdsSubject.next(getActiveAds(this.store.getState()));
+    });
+  }
 
-  retrieveActiveAds() {
+  private retrieveActiveAds() {
 
     const body = new HttpParams()
       .set(`ads`, 'kijiji');
@@ -65,9 +72,6 @@ export class AdsService {
     );
   }
 
-  getAds(): Ad[] {
-    return getActiveAds(this.store.getState());
-  }
 }
 
 // export interface Element {
