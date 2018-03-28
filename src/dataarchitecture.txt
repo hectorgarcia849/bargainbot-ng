@@ -1,0 +1,21 @@
+Ads have Specs, like a thread has messages.
+
+Authentication:
+-isloggedIn
+-
+
+
+ADS attributes:
+-post_date
+-price
+-link
+etc.
+
+Get Ads
+
+
+Specs attributes:
+-screen_size
+-memory_ram
+-processor
+etc.
